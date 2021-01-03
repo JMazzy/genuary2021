@@ -5,11 +5,9 @@ current pattern	            111	110	101	100	011	010	001	000
 new state for center cell	 0 	 0	 0	 1	 1	 1	 1	 0
 */
 
-const width = 512;
-const height = 512;
+const width = 800;
+const height = width/2;
 const center = Math.round(width / 2);
-var leftCarryOver = 0;
-var rightCarryOver = 0;
 var startingState = [];
 for (var i = 0; i < width; i++) {
     startingState[i] = i === center ? 1 : 0;
@@ -34,10 +32,8 @@ function evaluateRule(pattern) {
     }
 }
 
-function getNextState(current, leftCarryOver, rightCarryOver) {
+function getNextState(current) {
     var next = [];
-    next[0] = 0;
-    next[width - 1] = 0;
     for (var i = 0; i < width - 2; i++) {
         let pattern = "" + current[i] + current[i + 1] + current[i + 2];
         next[i + 1] = evaluateRule(pattern);
@@ -48,24 +44,22 @@ function getNextState(current, leftCarryOver, rightCarryOver) {
 const s = p => {
     p.setup = function () {
         p.createCanvas(width, height);
+        p.noStroke();
+        p.background(0);
     };
 
     p.draw = function () {
-        p.background(0);
-        var c = p.color(255, 100, 100);
-        p.fill(c);
-        p.noStroke();
+        var currentIdx = states.length - 1;
 
-        if (states.length > height) {
-            states.shift();
+        if (states.length < height) {
+            states.push(getNextState(states[currentIdx]));
         }
-        states.push(getNextState(states[states.length - 1], leftCarryOver, rightCarryOver));
 
-        for (var stateIdx = 0; stateIdx < states.length; stateIdx++) {
-            for (var i = 0; i < width; i++) {
-                if (states[stateIdx][i] === 1){
-                    p.rect(i, stateIdx, 1, 1);
-                }
+        for (var i = 0; i < width; i++) {
+            if (states[currentIdx][i] === 1){
+                var c = p.color("hsl(" + currentIdx % 255 + ",50%,50%)");
+                p.fill(c);
+                p.rect(i, currentIdx, 1, 1);
             }
         }
     };
