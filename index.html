@@ -1,11 +1,23 @@
 <html>
   <head>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.2.0/lib/p5.js"></script>
-    <script src="responses/3.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+    <title>Genuary 2021</title>
   </head>
-  <body>
-    <main>
-        <div id="p5-container"></div>
+  <body class="ui container">
+    <h1 class="ui heading">Genuary 2021</h1>
+    <p>JMazzy's responses to the prompts at <a href="https://genuary2021.github.io/">genuary2021.github.io</a></p>
+    <main id="main-links">
     </main>
+    <script>
+      var links = document.getElementById("main-links");
+      for (var i = 1; i <= 3; i++){
+        let linkHolder = document.createElement("div");
+        let link = document.createElement("a");
+        link.setAttribute("href", "./" + i + "/" + i + ".html");
+        link.text = "January " + i + ", 2021";
+        linkHolder.appendChild(link);
+        links.appendChild(linkHolder);
+      }
+    </script>
   </body>
 </html>

@@ -2,8 +2,8 @@
 // Prompt: Make something human
 
 const s = p => {
-    const width = 800;
-    const height = 600;
+    const width = 400;
+    const height = 300;
 
     p.setup = function () {
         p.createCanvas(width, height);
